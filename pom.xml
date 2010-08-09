@@ -50,7 +50,54 @@
             </execution>
         </executions>
 	  </plugin>
+	  
+	  <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <tagBase>https://dev.tpspencer.org/svn/tal/tal-aspects/tags</tagBase>
+        </configuration>
+      </plugin>
 	</plugins>
   </build>
+  
+  <distributionManagement>
+    <repository>
+      <id>releaseRepo</id>
+      <name>Releases Repository</name>
+      <url>scpexe://tps.tpspencer.com/var/maven/repo/</url>
+      <layout>default</layout>
+    </repository>
+    <snapshotRepository>
+      <id>snapshotRepo</id>
+      <name>Snapshot Snapshots</name>
+      <url>scpexe://tps.tpspencer.com/var/maven/snap_repo/</url>
+      <layout>legacy</layout>
+    </snapshotRepository>
+  
+    <site>
+      <id>siteServer</id>
+      <url>scpexe://tps.tpspencer.com/home/tspencer/site/tal-aspects</url>
+    </site>
+  </distributionManagement>
+  
+  <developers>
+  	<developer>
+  		<id>TPS</id>
+  		<name>Tom Spencer</name>
+  		<email>tom@tpspencer.com</email>
+  		<url>http://www.tpspencer.com</url>
+  		<roles>
+  			<role>Architect</role>
+  			<role>Project Manager</role>
+  		</roles>
+  	</developer>
+  </developers>
+  
+  <scm>
+  	<connection>scm:svn:https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</connection>
+  	<developerConnection>scm:svn:https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</developerConnection>
+  	<url>https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</url>
+  </scm>
   
 </project>
