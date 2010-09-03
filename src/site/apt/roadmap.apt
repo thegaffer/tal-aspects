@@ -1,0 +1,17 @@
+Roadmap
+
+  This page contains the roadmap of future versions.
+
+Version 1.0
+
+  Version 1.0 will be a full version and will concentrate on the following features.
+  I anticipate completing this for October 2010.
+  
+    * Move to a method level annotation approach instead of whole class level
+    
+    * Aspect for marking classes as prototype so a warning is generated to ensure
+    the class is replaced for production.
+    
+Version 1.1
+
+  No features currently planned
