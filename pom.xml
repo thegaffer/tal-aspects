@@ -3,7 +3,7 @@
   <groupId>org.tpspencer.tal</groupId>
   <artifactId>tal-aspects</artifactId>
   <name>Tal Aspects</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.9</version>
   <description>Common Aspects</description>
   
   <properties>
@@ -96,9 +96,9 @@
   </developers>
   
   <scm>
-  	<connection>scm:svn:https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</connection>
-  	<developerConnection>scm:svn:https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</developerConnection>
-  	<url>https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</url>
+  	<connection>scm:svn:https://dev.tpspencer.org/svn/tal/tal-aspects/tags/tal-aspects-0.9</connection>
+  	<developerConnection>scm:svn:https://dev.tpspencer.org/svn/tal/tal-aspects/tags/tal-aspects-0.9</developerConnection>
+  	<url>https://dev.tpspencer.org/svn/tal/tal-aspects/tags/tal-aspects-0.9</url>
   </scm>
   
 </project>
