@@ -41,3 +41,5 @@ License
     * AspectJ - Eclipse Public License v1, {{http://eclipse.org/legal/epl-v10.html}}
     
     * Apache Commons Logging - Apache License v2, {{http://commons.apache.org/logging/license.html}}
+    
+  Those projects in turn contain details on their dependencies.
