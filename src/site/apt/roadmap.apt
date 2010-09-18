@@ -12,6 +12,9 @@ Version 1.0
     * Aspect for marking classes as prototype so a warning is generated to ensure
     the class is replaced for production.
     
+    * Trace logger for Http requests
+    
 Version 1.1
 
-  No features currently planned
+  Version 1.1 will contain performance enahancements as required once I look
+  at the performance of version 1.0

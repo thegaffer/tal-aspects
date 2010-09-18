@@ -1,4 +1,233 @@
 Tal Framework - tal-aspects
 
-  The usage guide is not yet written. Please remember this is not intended as a
-  general purpose library. Examples of its usage can be seen in other Tal projects.
+  The tal-aspects project contains a range of general purpose aspects, mostly
+  centred around logging. The aspects are:
+  
+    * Trace logging around methods
+    
+    * Exception logging on the same trace methods
+    
+    * Prototype warning when a class marked as prototype is used
+    
+    * Enhanced trace logging for servlets
+    
+  Each of these is explained below. There then follows a brief on how to 
+  replace the actual loggers so you can customise the behaviour, but still
+  retain the aspects.
+  
+Using tal-aspects in a Project
+
+  To use tal-aspects it needs to be a dependency of your project so that you
+  get the annotations the aspects (below) use. You must also configure the
+  aspectj plugin to weave into your code at compile time - all of these
+  aspects are intended as compile-time aspects for ultimate performance.
+  
+  A POM then will be as follows:
+  
++--
+<project ...>
+  ...
+  <dependencies>
+  	...
+  	
+  	<dependency>
+  		<groupId>org.tpspencer.tal</groupId>
+  		<artifactId>tal-aspects</artifactId>
+  		<version>1.0</version>
+  	</dependency>
+  	
+  	...
+  </dependencies>
+  
+  <build>
+  	<plugins>
+  	  <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>aspectj-maven-plugin</artifactId>
+        <configuration>
+            <complianceLevel>1.5</complianceLevel>
+            <aspectLibraries>
+                <aspectLibrary>
+                    <groupId>org.tpspencer.tal</groupId>
+                    <artifactId>tal-aspects</artifactId>
+                </aspectLibrary>
+            </aspectLibraries>
+        </configuration>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>compile</goal>
+                    <goal>test-compile</goal>
+                </goals>
+            </execution>
+        </executions>
+	  </plugin>
+	  
+	  ...
+  	</plugins>
+  </build>
+  ...
+</project>
++--
+
+  That's pretty much it - you jar at the end will have the aspects weave in
+  to all the relevant places. You can confirm this by looking at the .class
+  files. The test-compile goal is optional and you could remove this is you
+  so wished.
+  
+Trace Logging (including Exception Logging)
+
+  The first aspect makes it easy to add in loggers that log the entry and
+  exit of every method, along with logging out an exception when that occurs.
+  Obviously you don't want this necessarily on every single method, for 
+  instance getter/setter logging would be overkill, but for every signficant
+  method tal-aspects provides a method level annotation (@Trace) to use.
+  
++--
+import org.talframework.tal.aspects.annotations.Trace;
+
+public class MyObject {
+
+  @Trace
+  public String doSomethingNonTrivial(...) {
+    // do something amazing!
+  }
+  
+  public String getTrivialThing() {
+    return trivialThing;
+  }
+}
++--
+  
+  When this is marked when doSomethingNonTrivial is logged out you will
+  get entry and exit logging something like this:
+  
++--
+[TRACE] - >>> Starting: doSomethingNonTrivial
+  arg[0]=arg0Val
+  arg[1]=arg1Val
+  etc
+[TRACE] - <<< Ending: doSomethingNonTrivial
+  retVal=returnVal
++--
+
+  All of the above is logged out at trace level on the class in question, in
+  this case MyObject. When an exception occurs you will still see the 
+  ">>> Starting" line, but you will see instead of the "<<< Ending" line the
+  following:
+  
++--
+[ERROR] - !!! Error from: doSomethingNonTrivial
+  exception=exceptionMessage
+  arg[0]=arg0Val
+  arg[1]=arg1Val
+  etc
+The stack trace ...
++--
+
+  Exceptions are output at error level against the class. Because you may
+  not have trace logging turned on all of the input parameters are re-printed
+  so you can see the input that caused the problem and what the exception was.
+  The stack trace is printed out if the MyObject class logger is at debug
+  level.
+  
+  For performance reasons though another logger must be set to debug level
+  even though we don't output at that level. Here is a snippet of a log4j
+  configuration that demonstrates this:
+  
++--
+log4j.rootCategory=INFO, A1
+
+log4j.logger.org.talframework.tal.aspects.loggers.trace.DefaultTraceLogger=DEBUG
+log4j.logger.MyObject=TRACE
++--
+
+  So the first line set the general logging to info level and redirects to
+  the A1 appender. The next line effectively turns on trace logging, but the
+  third line is needed to actually turn it on for MyObject. Of course setting
+  the logs to TRACE level from the start will turn on all trace logging.
+  
+  Exception logging does not rely on the DefaultTraceLogger being at debug
+  level, it will just work regardless - although MyObject does need to be
+  at least at error level to see the exception. 
+
+Prototype Logging
+
+  Prototype logging is useful when you have classes that you don't want to
+  use in the final production solution, but often come in handy during the
+  development cycle. By marking the class with the @PrototypeObject
+  annotation a log is made at warn level when ever one is constructed. This
+  serves as a reminder that there is something in the system you will want
+  to eventually remove.
+  
+  To use the prototype logger then:
+  
++--
+import org.talframework.tal.aspects.annotations.PrototypeObject;
+
+@PrototypeObject
+public class MyPrototypeObject {
+  ...
+}
++--
+
+  In the logs you will see something like ...
+  
++--
+[WARN] - !!! Prototype object created, change for production: class org.talframework.tal.aspects.support.PrototypeClass
++--
+
+  The logs are made using DefaultPrototypeLogger log level at warn. The 
+  following log4j snippet will turn it on if you typically run at error level.
+  
++--
+log4j.logger.org.talframework.tal.aspects.loggers.trace.DefaultPrototypeLogger=WARN
++--
+
+HTTP Request Logging
+
+  When working in the web world it is very common to wish to be able to log
+  out the request parameters and attributes on entry to a servlet handler
+  method (i.e. doGet) and the attributes and session contents at the end.
+  So tal-aspects includes a specialised trace logger for this.
+  
+  To activate you mark you methods with the @HttpTrace annotation. In order
+  to see anything this method must have a HttpServletRequest as its first
+  argument - it can have any number of subsequent arguments.
+  
++--
+public class MyServlet {
+
+  @HttpTrace
+  public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    ...
+  }
+}
++--
+
+  The logger works very similar to the normal trace logger in that you must
+  enable the DefaultRequestLogger at debug level before you will see anything,
+  but once done the log will be output using your classes logger. Parameter
+  and session logging is done at debug level, whilst request attribute logging
+  is done at trace level. The following log4j snippet shows this.
+  
++--
+log4j.rootCategory=INFO, A1
+
+log4j.logger.org.talframework.tal.aspects.loggers.http.DefaultRequestLogger=DEBUG
+log4j.logger.MyServlet=DEBUG or TRACE
++--
+
+  Note that the servlet specs are an optional dependency of tal-aspects so they
+  will not be brought in automatically. If you mark methods with HttpTrace
+  and do not have the servlet spec in your classpath you will get runtime
+  class not found errors.
+  
+Providing Custom Loggers
+
+  The aspects all turn to a singleton (well singleton per classloader) class
+  to get the loggers from. It is initially configured with the default
+  loggers. However, you can get hold of this and inject in any loggers you
+  wish.
+  
+  See SingletonAspectLogger for this.
