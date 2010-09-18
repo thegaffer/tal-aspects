@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.loggers;
+package org.talframework.tal.aspects.loggers;
 
 import org.aspectj.lang.JoinPoint;
 

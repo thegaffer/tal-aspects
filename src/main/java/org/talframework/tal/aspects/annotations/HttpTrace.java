@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Thomas Spencer
+ * Copyright 2010 Thomas Spencer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.loggers;
+package org.talframework.tal.aspects.annotations;
 
-import org.aspectj.lang.JoinPoint;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
- * This interface represents a class that will handle
- * the logging of Exceptions that have occurred in
- * either methods that are being traced fully or just
- * for exceptions
- * 
+ * This annotation is used to mark a method that takes
+ * in a {@link HttpServletRequest} and we want to output
+ * the request parameters, attribute and session.
+ *
  * @author Tom Spencer
  */
-public interface ExceptionLogger {
-
-	/**
-	 * Called by the aspect when an exception is thrown.
-	 * 
-	 * @param jp The joinpoint
-	 * @param e The exception
-	 */
-	public abstract void traceException(JoinPoint jp, Exception e);
+@Retention(RetentionPolicy.CLASS)
+@Target({ElementType.METHOD})
+public @interface HttpTrace {
 }

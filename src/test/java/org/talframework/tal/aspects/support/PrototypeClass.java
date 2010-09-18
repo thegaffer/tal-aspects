@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Thomas Spencer
+ * Copyright 2010 Thomas Spencer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,11 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.annotations;
+package org.talframework.tal.aspects.support;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.talframework.tal.aspects.annotations.PrototypeObject;
 
-/**
- * This annotation indicates that methods on a class
- * should be profiled at runtime.
- * 
- * @author Tom Spencer
- */
-@Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE})
-public @interface RuntimeProfile {
-	public long threshold() default 2000;
+@PrototypeObject
+public class PrototypeClass {
+
 }

@@ -3,7 +3,7 @@
   <groupId>org.talframework.tal</groupId>
   <artifactId>tal-aspects</artifactId>
   <name>Tal Aspects</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.9</version>
   <description>Common Aspects</description>
   
   <licenses>
@@ -25,12 +25,34 @@
   		<artifactId>commons-logging</artifactId>
   		<version>${commons.logging.version}</version>
   	</dependency>
+  	<dependency>
+		<groupId>geronimo-spec</groupId>
+		<artifactId>geronimo-spec-servlet</artifactId>
+		<version>2.4-rc4</version>
+		<scope>provided</scope>
+		<optional>true</optional>
+    </dependency>
   	
   	<dependency>
   		<groupId>org.aspectj</groupId>
   		<artifactId>aspectjrt</artifactId>
   		<version>1.6.7</version>
   	</dependency>
+  	
+  	<!-- Test -->
+  	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.8.1</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+  		<groupId>org.jmock</groupId>
+  		<artifactId>jmock-junit4</artifactId>
+  		<version>2.5.1</version>
+  		<scope>test</scope>
+  	</dependency>
+  	
   </dependencies>
   
   <build>

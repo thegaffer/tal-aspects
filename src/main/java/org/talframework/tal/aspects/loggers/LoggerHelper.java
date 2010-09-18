@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.loggers;
+package org.talframework.tal.aspects.loggers;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class BaseDefaultLogger {
+/**
+ * This helper class gets the logger for a specific class
+ * and contains methods to log out values.
+ *
+ * @author Tom Spencer
+ */
+public final class LoggerHelper {
 	
 	/**
 	 * Helper to get the logger for the class we are running.
@@ -29,7 +35,19 @@ public abstract class BaseDefaultLogger {
 	 * @param cls The class to get logger for
 	 * @return The logger
 	 */
-	protected Log getTraceLogger(Class<?> cls) {
+	public static Log getLogger(Class<?> cls) {
 		return LogFactory.getLog(cls);
+	}
+	
+	/**
+	 * Helper to log out an object. This is separated so we
+	 * can introduce reflection if the class does not declare
+	 * a toString method.
+	 * 
+	 * @param o The object
+	 * @return Its output value
+	 */
+	public static String getValue(Object o) {
+	    return o != null ? o.toString() : null;
 	}
 }

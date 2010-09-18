@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.loggers;
+package org.talframework.tal.aspects.loggers.trace;
 
 import org.apache.commons.logging.Log;
 import org.aspectj.lang.JoinPoint;
+import org.talframework.tal.aspects.loggers.ExceptionLogger;
+import org.talframework.tal.aspects.loggers.LoggerHelper;
 
 /**
  * This class actually performs the exception logging when
@@ -25,20 +27,20 @@ import org.aspectj.lang.JoinPoint;
  * 
  * @author Tom Spencer
  */
-public final class DefaultExceptionLogger extends BaseDefaultLogger implements ExceptionLogger {
+public final class DefaultExceptionLogger implements ExceptionLogger {
 	
 	/**
 	 * Logs out that the method has failed listing out the full
 	 * input parameters and the exception. Logging is done as
 	 * error level
 	 */
-	public void traceException(JoinPoint jp, Exception e) {
+	public void traceException(JoinPoint jp, Throwable t) {
 		Object target = jp.getThis();
-		Log traceLogger = getTraceLogger(target.getClass());
+		Log traceLogger = LoggerHelper.getLogger(target.getClass());
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append("!!! Error From: ").append(jp.getStaticPart().getSignature().getName());
-		builder.append("\n\texception=").append(e);
+		builder.append("\n\texception=").append(t);
 		Object[] args = jp.getArgs();
 		if( args != null && args.length > 0 ) {
 			for( int i = 0 ; i < args.length ; i++ ) {
@@ -47,6 +49,6 @@ public final class DefaultExceptionLogger extends BaseDefaultLogger implements E
 		}
 		
 		traceLogger.error(builder.toString());
-		if( traceLogger.isDebugEnabled() ) e.printStackTrace();
+		if( traceLogger.isDebugEnabled() ) t.printStackTrace();
 	}
 }

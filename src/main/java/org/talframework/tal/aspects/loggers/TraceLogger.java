@@ -14,21 +14,30 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.annotations;
+package org.talframework.tal.aspects.loggers;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.aspectj.lang.JoinPoint;
 
 /**
- * This annotation indicates that methods on a class
- * should be monitored for exceptions, but not traced
- * out generally.
+ * This logger represents the normal before/after a method
+ * logging.
  * 
  * @author Tom Spencer
  */
-@Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE})
-public @interface TraceException {
+public interface TraceLogger {
+
+	/**
+	 * Called by the aspect to trace the start of methods
+	 * 
+	 * @param jp The join point
+	 */
+	public abstract void traceBefore(JoinPoint jp);
+	
+	/**
+	 * Called by the aspect to trace the end of methods
+	 * 
+	 * @param jp The join point
+	 * @param retVal The return value
+	 */
+	public abstract void traceAfter(JoinPoint jp, Object retVal);
 }

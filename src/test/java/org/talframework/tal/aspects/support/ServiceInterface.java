@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Thomas Spencer
+ * Copyright 2010 Thomas Spencer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,20 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects;
+package org.talframework.tal.aspects.support;
 
-public aspect PrototypeAspect {
+import org.talframework.tal.aspects.annotations.Profile;
 
+/**
+ * This test interface has some profile methods that
+ * we can ensure we hit.
+ *
+ * @author Tom Spencer
+ */
+public interface ServiceInterface {
+
+    @Profile
+    public boolean profileTest(String arg);
+    
+    public boolean nonProfileTest();
 }

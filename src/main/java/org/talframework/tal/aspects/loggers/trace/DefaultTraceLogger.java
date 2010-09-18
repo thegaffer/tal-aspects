@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.loggers;
+package org.talframework.tal.aspects.loggers.trace;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
+import org.talframework.tal.aspects.loggers.LoggerHelper;
+import org.talframework.tal.aspects.loggers.TraceLogger;
+import org.talframework.tal.aspects.loggers.locator.SingletonAspectLogger;
 
 /**
  * This class is the default and in-built trace logger. It will
@@ -28,7 +31,7 @@ import org.aspectj.lang.JoinPoint;
  * 
  * @author Tom Spencer
  */
-public final class DefaultTraceLogger extends BaseDefaultLogger implements TraceLogger {
+public final class DefaultTraceLogger implements TraceLogger {
 	private static final Log logger = LogFactory.getLog(DefaultTraceLogger.class);
 	
 	/**
@@ -41,7 +44,7 @@ public final class DefaultTraceLogger extends BaseDefaultLogger implements Trace
 		if( !logger.isDebugEnabled() ) return;
 		
 		Object target = jp.getThis();
-		Log traceLogger = getTraceLogger(target.getClass());
+		Log traceLogger = LoggerHelper.getLogger(target.getClass());
 		if( traceLogger.isTraceEnabled() ) {
 			StringBuilder builder = new StringBuilder();
 			
@@ -67,7 +70,7 @@ public final class DefaultTraceLogger extends BaseDefaultLogger implements Trace
 		if( !logger.isDebugEnabled() ) return;
 		
 		Object target = jp.getThis();
-		Log traceLogger = getTraceLogger(target.getClass());
+		Log traceLogger = LoggerHelper.getLogger(target.getClass());
 		if( traceLogger.isTraceEnabled() ) {
 			StringBuilder builder = new StringBuilder();
 			

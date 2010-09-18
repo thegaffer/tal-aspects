@@ -14,7 +14,17 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.loggers;
+package org.talframework.tal.aspects.loggers.locator;
+
+import org.talframework.tal.aspects.loggers.ConstructionLogger;
+import org.talframework.tal.aspects.loggers.ExceptionLogger;
+import org.talframework.tal.aspects.loggers.ProfileLogger;
+import org.talframework.tal.aspects.loggers.TraceLogger;
+import org.talframework.tal.aspects.loggers.http.DefaultRequestLogger;
+import org.talframework.tal.aspects.loggers.profile.DefaultProfilingLogger;
+import org.talframework.tal.aspects.loggers.trace.DefaultExceptionLogger;
+import org.talframework.tal.aspects.loggers.trace.DefaultPrototypeLogger;
+import org.talframework.tal.aspects.loggers.trace.DefaultTraceLogger;
 
 
 /**
@@ -36,9 +46,13 @@ public class SingletonAspectLogger {
 	/** Holds the trace logger */
 	private TraceLogger traceLogger = new DefaultTraceLogger();
 	/** Holds the exception logger */
-	private ExceptionLogger exceptionLogger;
+	private ExceptionLogger exceptionLogger = new DefaultExceptionLogger();
 	/** Holds the profile logger */
-	private ProfileLogger profileLogger;
+	private ProfileLogger profileLogger = new DefaultProfilingLogger();
+	/** Holds the http request logger */
+	private TraceLogger requestLogger = new DefaultRequestLogger();
+	/** Holds the prototype logger */
+	private ConstructionLogger prototypeLogger = new DefaultPrototypeLogger();
 	
 	/**
 	 * Hidden constructor to ensure no more instances are created
@@ -97,4 +111,36 @@ public class SingletonAspectLogger {
 	public void setProfileLogger(ProfileLogger profileLogger) {
 		this.profileLogger = profileLogger;
 	}
+
+    /**
+     * @return the requestLogger
+     */
+    public TraceLogger getRequestLogger() {
+        return requestLogger;
+    }
+
+    /**
+     * Setter for the requestLogger field
+     *
+     * @param requestLogger the requestLogger to set
+     */
+    public void setRequestLogger(TraceLogger requestLogger) {
+        this.requestLogger = requestLogger;
+    }
+
+    /**
+     * @return the prototypeLogger
+     */
+    public ConstructionLogger getPrototypeLogger() {
+        return prototypeLogger;
+    }
+
+    /**
+     * Setter for the prototypeLogger field
+     *
+     * @param prototypeLogger the prototypeLogger to set
+     */
+    public void setPrototypeLogger(ConstructionLogger prototypeLogger) {
+        this.prototypeLogger = prototypeLogger;
+    }
 }

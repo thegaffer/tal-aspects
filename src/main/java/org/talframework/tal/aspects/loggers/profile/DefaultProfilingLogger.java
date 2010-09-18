@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package org.tpspencer.tal.util.aspects.loggers;
+package org.talframework.tal.aspects.loggers.profile;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
+import org.talframework.tal.aspects.loggers.ProfileLogger;
 
 /**
  * This class actually performs the exception logging when
