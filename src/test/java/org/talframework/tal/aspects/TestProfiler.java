@@ -29,7 +29,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.talframework.tal.aspects.loggers.profile.DefaultProfilingLogger;
 import org.talframework.tal.aspects.support.ServiceInterface;
-import org.talframework.tal.aspects.support.TestLogger;
+import org.talframework.tal.aspects.support.SimpleLogger;
 
 /**
  * Tests that we can profile methods.
@@ -42,7 +42,7 @@ public class TestProfiler {
 
     @After
     public void after() {
-        TestLogger logger = (TestLogger)LogFactory.getLog(DefaultProfilingLogger.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(DefaultProfilingLogger.class);
         logger.clear();
     }
 
@@ -61,7 +61,7 @@ public class TestProfiler {
         iface.profileTest("goodArg");
         iface.profileTest("badArg");
         
-        TestLogger profilerLogger = (TestLogger)LogFactory.getLog(DefaultProfilingLogger.class);
+        SimpleLogger profilerLogger = (SimpleLogger)LogFactory.getLog(DefaultProfilingLogger.class);
         Assert.assertEquals(1, profilerLogger.getLogSize());
         Assert.assertEquals(1, profilerLogger.getLogSize("info"));
         Assert.assertTrue(profilerLogger.getLogs("info", false).get(0).contains("Profiling ["));
@@ -82,7 +82,7 @@ public class TestProfiler {
         
         iface.nonProfileTest();
         
-        TestLogger profilerLogger = (TestLogger)LogFactory.getLog(DefaultProfilingLogger.class);
+        SimpleLogger profilerLogger = (SimpleLogger)LogFactory.getLog(DefaultProfilingLogger.class);
         Assert.assertEquals(0, profilerLogger.getLogSize());
     }
     

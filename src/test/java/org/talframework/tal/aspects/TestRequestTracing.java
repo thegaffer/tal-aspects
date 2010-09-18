@@ -30,7 +30,7 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 import org.talframework.tal.aspects.support.SimpleServlet;
-import org.talframework.tal.aspects.support.TestLogger;
+import org.talframework.tal.aspects.support.SimpleLogger;
 
 /**
  * This class tests that we can
@@ -81,7 +81,7 @@ public class TestRequestTracing {
         
         servlet.doGet(request, response);
         
-        TestLogger logger = (TestLogger)LogFactory.getLog(SimpleServlet.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleServlet.class);
         Assert.assertEquals(4, logger.getLogSize());
         Assert.assertEquals(2, logger.getLogSize("trace"));
         Assert.assertEquals(2, logger.getLogSize("debug"));

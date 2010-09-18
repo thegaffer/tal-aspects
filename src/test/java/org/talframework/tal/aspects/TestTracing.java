@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Test;
 import org.talframework.tal.aspects.support.SimpleTraceClass;
-import org.talframework.tal.aspects.support.TestLogger;
+import org.talframework.tal.aspects.support.SimpleLogger;
 
 /**
  * This class tests that we trace methods correctly.
@@ -35,7 +35,7 @@ public class TestTracing {
     
     @After
     public void after() {
-        TestLogger logger = (TestLogger)LogFactory.getLog(SimpleTraceClass.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleTraceClass.class);
         logger.clear();
     }
 
@@ -43,7 +43,7 @@ public class TestTracing {
     public void basic() {
         underTest.basic("aString", 1234543);
         
-        TestLogger logger = (TestLogger)LogFactory.getLog(SimpleTraceClass.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleTraceClass.class);
         Assert.assertEquals(2, logger.getLogSize());
         Assert.assertEquals(2, logger.getLogSize("trace"));
     }
@@ -56,7 +56,7 @@ public class TestTracing {
         }
         catch( IllegalArgumentException e ) {}
         
-        TestLogger logger = (TestLogger)LogFactory.getLog(SimpleTraceClass.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleTraceClass.class);
         Assert.assertEquals(2, logger.getLogSize());
         Assert.assertEquals(1, logger.getLogSize("trace"));
         Assert.assertEquals(1, logger.getLogSize("error"));
@@ -66,7 +66,7 @@ public class TestTracing {
     public void noArgs() {
         underTest.noArgs();
         
-        TestLogger logger = (TestLogger)LogFactory.getLog(SimpleTraceClass.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleTraceClass.class);
         Assert.assertEquals(2, logger.getLogSize());
         Assert.assertEquals(2, logger.getLogSize("trace"));
     }
@@ -75,7 +75,7 @@ public class TestTracing {
     public void noReturn() {
         underTest.noReturn(444.5678);
         
-        TestLogger logger = (TestLogger)LogFactory.getLog(SimpleTraceClass.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleTraceClass.class);
         Assert.assertEquals(2, logger.getLogSize());
         Assert.assertEquals(2, logger.getLogSize("trace"));
     }
@@ -84,7 +84,7 @@ public class TestTracing {
     public void noTrace() {
         underTest.noTrace("noTrace", 1234543);
         
-        TestLogger logger = (TestLogger)LogFactory.getLog(SimpleTraceClass.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleTraceClass.class);
         Assert.assertEquals(0, logger.getLogSize());
     }
 }

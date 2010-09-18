@@ -29,11 +29,11 @@ import org.apache.commons.logging.Log;
  *
  * @author Tom Spencer
  */
-public class TestLogger implements Log {
+public class SimpleLogger implements Log {
     
     private Map<String, List<String>> logs = new HashMap<String, List<String>>();
     
-    public TestLogger(String arg) {
+    public SimpleLogger(String arg) {
         
     }
     

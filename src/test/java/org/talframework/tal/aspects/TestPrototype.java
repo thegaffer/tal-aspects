@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.talframework.tal.aspects.loggers.trace.DefaultPrototypeLogger;
 import org.talframework.tal.aspects.support.PrototypeClass;
-import org.talframework.tal.aspects.support.TestLogger;
+import org.talframework.tal.aspects.support.SimpleLogger;
 
 public class TestPrototype {
 
@@ -30,7 +30,7 @@ public class TestPrototype {
     public void basic() {
         new PrototypeClass();
         
-        TestLogger logger = (TestLogger)LogFactory.getLog(DefaultPrototypeLogger.class);
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(DefaultPrototypeLogger.class);
         Assert.assertEquals(1, logger.getLogSize());
         Assert.assertEquals(1, logger.getLogSize("warn"));
     }
