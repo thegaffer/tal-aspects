@@ -87,4 +87,13 @@ public class TestTracing {
         SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleTraceClass.class);
         Assert.assertEquals(0, logger.getLogSize());
     }
+    
+    @Test
+    public void warning() {
+        underTest.shouldntBeCalled("aString");
+        
+        SimpleLogger logger = (SimpleLogger)LogFactory.getLog(SimpleTraceClass.class);
+        Assert.assertEquals(1, logger.getLogSize());
+        Assert.assertEquals(1, logger.getLogSize("warn"));
+    }
 }

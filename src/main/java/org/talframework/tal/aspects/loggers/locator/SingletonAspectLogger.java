@@ -25,6 +25,7 @@ import org.talframework.tal.aspects.loggers.profile.DefaultProfilingLogger;
 import org.talframework.tal.aspects.loggers.trace.DefaultExceptionLogger;
 import org.talframework.tal.aspects.loggers.trace.DefaultPrototypeLogger;
 import org.talframework.tal.aspects.loggers.trace.DefaultTraceLogger;
+import org.talframework.tal.aspects.loggers.trace.DefaultWarnLogger;
 
 
 /**
@@ -39,12 +40,14 @@ import org.talframework.tal.aspects.loggers.trace.DefaultTraceLogger;
  * 
  * @author Tom Spencer
  */
-public class SingletonAspectLogger {
+public final class SingletonAspectLogger {
 	/** The single instance of this class */
 	private static final SingletonAspectLogger INSTANCE = new SingletonAspectLogger();
 	
 	/** Holds the trace logger */
 	private TraceLogger traceLogger = new DefaultTraceLogger();
+	/** Holds the warning logger */
+    private TraceLogger warningLogger = new DefaultWarnLogger();
 	/** Holds the exception logger */
 	private ExceptionLogger exceptionLogger = new DefaultExceptionLogger();
 	/** Holds the profile logger */
@@ -143,4 +146,21 @@ public class SingletonAspectLogger {
     public void setPrototypeLogger(ConstructionLogger prototypeLogger) {
         this.prototypeLogger = prototypeLogger;
     }
+
+    /**
+     * @return the warningLogger
+     */
+    public TraceLogger getWarningLogger() {
+        return warningLogger;
+    }
+
+    /**
+     * Setter for the warningLogger field
+     *
+     * @param warningLogger the warningLogger to set
+     */
+    public void setWarningLogger(TraceLogger warningLogger) {
+        this.warningLogger = warningLogger;
+    }
+    
 }

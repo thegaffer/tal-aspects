@@ -40,12 +40,7 @@ public final class DefaultExceptionLogger implements ExceptionLogger {
 		
 		builder.append("!!! Error From: ").append(jp.getStaticPart().getSignature().getName());
 		builder.append("\n\texception=").append(t);
-		Object[] args = jp.getArgs();
-		if( args != null && args.length > 0 ) {
-			for( int i = 0 ; i < args.length ; i++ ) {
-				builder.append("\n\targ[").append(i).append("]=").append(args[i]);
-			}
-		}
+		LoggerHelper.appendArguments(jp.getArgs(), builder);
 		
 		traceLogger.error(builder.toString());
 		if( traceLogger.isDebugEnabled() ) t.printStackTrace();

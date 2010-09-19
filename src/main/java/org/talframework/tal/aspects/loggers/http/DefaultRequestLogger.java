@@ -37,7 +37,7 @@ import org.talframework.tal.aspects.loggers.TraceLogger;
  *
  * @author Tom Spencer
  */
-public class DefaultRequestLogger implements TraceLogger {
+public final class DefaultRequestLogger implements TraceLogger {
     private static final Log logger = LogFactory.getLog(DefaultRequestLogger.class);
     
     /**

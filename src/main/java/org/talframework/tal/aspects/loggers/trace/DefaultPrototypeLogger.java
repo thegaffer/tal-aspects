@@ -26,7 +26,7 @@ import org.talframework.tal.aspects.loggers.ConstructionLogger;
  *
  * @author Tom Spencer
  */
-public class DefaultPrototypeLogger implements ConstructionLogger {
+public final class DefaultPrototypeLogger implements ConstructionLogger {
     private static final Log logger = LogFactory.getLog(DefaultPrototypeLogger.class);
 
     /**

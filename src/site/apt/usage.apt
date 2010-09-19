@@ -11,6 +11,8 @@ Tal Framework - tal-aspects
     
     * Enhanced trace logging for servlets
     
+    * Warning aspect that warns in the logs when a method is called
+    
   Each of these is explained below. There then follows a brief on how to 
   replace the actual loggers so you can customise the behaviour, but still
   retain the aspects.
@@ -223,6 +225,28 @@ log4j.logger.MyServlet=DEBUG or TRACE
   and do not have the servlet spec in your classpath you will get runtime
   class not found errors.
   
+Warning Aspect
+
+  The tal-aspects modules take away most of the standard/mundane logging in a
+  system. However, one usage remains and that is of a warning when something
+  has happened that is significant, but which the system will otherwise carry
+  on with (i.e. there is not necessarily a hint of this event in the return
+  value and there is no exception).
+  
+  With the warning aspect you can create special methods with the @TraceWarn
+  annotation. Only the input to these methods are logged along with their
+  parameters.
+  
+  See the trace aspect above the only exception is that the log message is always
+  output with the logger from the class where the method is, so log4j config is
+  a little easier.
+  
+  _Side Note_: I don't really like doing this - effectively we are designing our
+  internal code around AOP which definitely should not be the case. However,
+  I dislike a few direct compile time references to a logging framework inside
+  my real code even more so this is a compromise I choose to take - you may
+  see it differently.
+
 Providing Custom Loggers
 
   The aspects all turn to a singleton (well singleton per classloader) class

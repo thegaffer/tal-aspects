@@ -19,6 +19,7 @@ package org.talframework.tal.aspects.loggers.profile;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
+import org.talframework.tal.aspects.loggers.LoggerHelper;
 import org.talframework.tal.aspects.loggers.ProfileLogger;
 
 /**
@@ -31,9 +32,10 @@ public final class DefaultProfilingLogger implements ProfileLogger {
 	private static final Log logger = LogFactory.getLog(DefaultProfilingLogger.class);
 	
 	/** The threshold above which we log out, default is 2 seconds */
-	private long threshold = 2000;
+	private final long threshold;
 	
 	public DefaultProfilingLogger() {
+	    this.threshold = 2000;
 	}
 	
 	public DefaultProfilingLogger(long threshold) {
@@ -46,12 +48,7 @@ public final class DefaultProfilingLogger implements ProfileLogger {
 			
 			builder.append("*** Profiling [").append(timeTaken).append("ms]: ");
 			builder.append(jp.getStaticPart().getSignature());
-			Object[] args = jp.getArgs();
-			if( args != null && args.length > 0 ) {
-				for( int i = 0 ; i < args.length ; i++ ) {
-					builder.append("\n\targ[").append(i).append("]=").append(args[i]);
-				}
-			}
+			LoggerHelper.appendArguments(jp.getArgs(), builder);
 			
 			logger.info(builder.toString());
 		}

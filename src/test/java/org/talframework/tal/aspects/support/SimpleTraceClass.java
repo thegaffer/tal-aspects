@@ -17,6 +17,7 @@
 package org.talframework.tal.aspects.support;
 
 import org.talframework.tal.aspects.annotations.Trace;
+import org.talframework.tal.aspects.annotations.TraceWarn;
 
 /**
  * This class doesn't do anything, but includes methods that
@@ -48,5 +49,10 @@ public class SimpleTraceClass {
     
     public String noTrace(String arg0, int arg1) {
         return "noTrace";
+    }
+ 
+    @TraceWarn
+    public void shouldntBeCalled(String arg0) {
+        
     }
 }

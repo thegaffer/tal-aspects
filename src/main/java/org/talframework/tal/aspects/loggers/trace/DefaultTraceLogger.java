@@ -48,12 +48,7 @@ public final class DefaultTraceLogger implements TraceLogger {
 			StringBuilder builder = new StringBuilder();
 			
 			builder.append(">>> Starting: ").append(jp.getStaticPart().getSignature().getName());
-			Object[] args = jp.getArgs();
-			if( args != null && args.length > 0 ) {
-				for( int i = 0 ; i < args.length ; i++ ) {
-					builder.append("\n\targ[").append(i).append("]=").append(args[i]);
-				}
-			}
+			LoggerHelper.appendArguments(jp.getArgs(), builder);
 			
 			traceLogger.trace(builder.toString());
 		}

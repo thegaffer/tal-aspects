@@ -50,4 +50,20 @@ public final class LoggerHelper {
 	public static String getValue(Object o) {
 	    return o != null ? o.toString() : null;
 	}
+	
+	/**
+	 * This method simply adds arguments to a string builder,
+	 * creating a new line for each argument, indenting by 1
+	 * tab.
+	 * 
+	 * @param args The arguments to log
+	 * @param builder The existing string builder
+	 */
+	public static void appendArguments(Object[] args, StringBuilder builder) {
+	    if( args != null && args.length > 0 ) {
+            for( int i = 0 ; i < args.length ; i++ ) {
+                builder.append("\n\targ[").append(i).append("]=").append(args[i]);
+            }
+        }
+	}
 }
