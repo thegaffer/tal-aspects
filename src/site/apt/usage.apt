@@ -115,7 +115,7 @@ public class MyObject {
 
   All of the above is logged out at trace level on the class in question, in
   this case MyObject. When an exception occurs you will still see the 
-  ">>> Starting" line, but you will see instead of the "<<< Ending" line the
+  "Starting" line, but you will see instead of the "Ending" line the
   following:
   
 +--
