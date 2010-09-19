@@ -33,6 +33,6 @@ public class DefaultPrototypeLogger implements ConstructionLogger {
      * Simply warns on the usage at construction time
      */
     public void traceCreation(JoinPoint jp) {
-        logger.warn("!!! Prototype object created, change for production: " + jp.getTarget().getClass());
+        logger.warn("!!! Prototype object created, change for production: " + jp.getStaticPart().getSignature().getDeclaringType());
     }
 }

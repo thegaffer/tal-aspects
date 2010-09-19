@@ -43,8 +43,7 @@ public final class DefaultTraceLogger implements TraceLogger {
 	public void traceBefore(JoinPoint jp) {
 		if( !logger.isDebugEnabled() ) return;
 		
-		Object target = jp.getThis();
-		Log traceLogger = LoggerHelper.getLogger(target.getClass());
+		Log traceLogger = LoggerHelper.getLogger(jp.getStaticPart().getSignature().getDeclaringType());
 		if( traceLogger.isTraceEnabled() ) {
 			StringBuilder builder = new StringBuilder();
 			
@@ -69,8 +68,7 @@ public final class DefaultTraceLogger implements TraceLogger {
 	public void traceAfter(JoinPoint jp, Object retVal) {
 		if( !logger.isDebugEnabled() ) return;
 		
-		Object target = jp.getThis();
-		Log traceLogger = LoggerHelper.getLogger(target.getClass());
+		Log traceLogger = LoggerHelper.getLogger(jp.getStaticPart().getSignature().getDeclaringType());
 		if( traceLogger.isTraceEnabled() ) {
 			StringBuilder builder = new StringBuilder();
 			

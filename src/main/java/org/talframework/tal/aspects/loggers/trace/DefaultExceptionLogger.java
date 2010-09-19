@@ -35,8 +35,7 @@ public final class DefaultExceptionLogger implements ExceptionLogger {
 	 * error level
 	 */
 	public void traceException(JoinPoint jp, Throwable t) {
-		Object target = jp.getThis();
-		Log traceLogger = LoggerHelper.getLogger(target.getClass());
+		Log traceLogger = LoggerHelper.getLogger(jp.getStaticPart().getSignature().getDeclaringType());
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append("!!! Error From: ").append(jp.getStaticPart().getSignature().getName());

@@ -41,4 +41,8 @@ public aspect RequestAspect {
     after() : requestMethod() {
         SingletonAspectLogger.getInstance().getRequestLogger().traceAfter(thisJoinPoint, null);
     }
+    
+    after() throwing(Throwable t) : requestMethod() {
+        SingletonAspectLogger.getInstance().getExceptionLogger().traceException(thisJoinPoint, t);
+    }
 }

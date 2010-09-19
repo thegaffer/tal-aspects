@@ -48,12 +48,14 @@ public class DefaultRequestLogger implements TraceLogger {
     public void traceBefore(JoinPoint jp) {
         if( !logger.isDebugEnabled() ) return;
         
-        HttpServletRequest req = findRequest(jp);
-        if( req == null ) return;
+        Log logger = LoggerHelper.getLogger(jp.getStaticPart().getSignature().getDeclaringType());
+        if( logger.isDebugEnabled() ) {
+            HttpServletRequest req = findRequest(jp);
+            if( req == null ) return;
         
-        Log logger = LoggerHelper.getLogger(jp.getTarget().getClass());
-        if( logger.isDebugEnabled() ) logRequestParameters(req, logger);
-        if( logger.isTraceEnabled() ) logRequestAttributes(req, logger);
+            if( logger.isDebugEnabled() ) logRequestParameters(req, logger);
+            if( logger.isTraceEnabled() ) logRequestAttributes(req, logger);
+        }
     }
 
     /**
@@ -64,12 +66,14 @@ public class DefaultRequestLogger implements TraceLogger {
     public void traceAfter(JoinPoint jp, Object retVal) {
         if( !logger.isDebugEnabled() ) return;
         
-        HttpServletRequest req = findRequest(jp);
-        if( req == null ) return;
-        
-        Log logger = LoggerHelper.getLogger(jp.getTarget().getClass());
-        if( logger.isTraceEnabled() ) logRequestAttributes(req, logger);
-        if( logger.isDebugEnabled() ) logSessionAttributes(req, logger);
+        Log logger = LoggerHelper.getLogger(jp.getStaticPart().getSignature().getDeclaringType());
+        if( logger.isDebugEnabled() ) {
+            HttpServletRequest req = findRequest(jp);
+            if( req == null ) return;
+            
+            if( logger.isTraceEnabled() ) logRequestAttributes(req, logger);
+            if( logger.isDebugEnabled() ) logSessionAttributes(req, logger);
+        }
     }
     
     /**
