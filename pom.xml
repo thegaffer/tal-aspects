@@ -84,14 +84,6 @@
 	  </plugin>
 	  
 	  <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.0</version>
-        <configuration>
-          <tagBase>https://dev.tpspencer.org/svn/tal/tal-aspects/tags</tagBase>
-        </configuration>
-      </plugin>
-      
-      <plugin>
    		<groupId>com.mycila.maven-license-plugin</groupId>
    		<artifactId>maven-license-plugin</artifactId>
    		<version>1.9.0</version>
@@ -149,9 +141,9 @@
   </developers>
   
   <scm>
-  	<connection>scm:svn:https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</connection>
-  	<developerConnection>scm:svn:https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</developerConnection>
-  	<url>https://dev.tpspencer.org/svn/tal/tal-aspects/trunk/</url>
+  	<connection>scm:git:git@github.com:thegaffer/tal-aspects.git</connection>
+  	<developerConnection>scm:git:git@github.com:thegaffer/tal-aspects.git</developerConnection>
+  	<url>https://thegaffer@github.com/thegaffer/tal-aspects.git</url>
   </scm>
   
 </project>
