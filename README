@@ -1,0 +1,6 @@
+TAL Aspects; tal-aspects
+Copyright (C) Thomas Spencer, 2011
+License: GPL v3, see LICENSE
+
+TAL Aspects contains some general purpose Java Aspects that I use in other
+projects.
